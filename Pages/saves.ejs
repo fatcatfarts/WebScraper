@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Saved Scrapes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/viewsaves.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Oswald:wght@400;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <main class="main-content">
+    <div class="container py-4">
+      <h1 class="page-title">My Saved Scrapes</h1>
+
+      <% if (saves && saves.length> 0) { %>
+        <% saves.forEach((save, index)=> { %>
+
+          <div class="save-card-wrapper">
+            <!-- data-state for JS control and a unique ID for changing it -->
+            <div class="save-card" id="save-card-<%= index %>" data-state="collapsed">
+
+              <div class="card-header">
+                <span class="header-title"><a href="<%= save[0] %>">
+                    <%= save[0] %>
+                  </a></span>
+              </div>
+
+              <!-- actual content part that will be that is toggled -->
+              <div class="card-collapsible-content">
+                <div class="card-body">
+                  <!-- scrollable-->
+                  <div class="card-body-scroll">
+
+                    <% for (let i=0; i < 6; i++) { %>
+
+                      <% if (save[i+1] && save[i+1] !=='' ) { %>
+                        <h5 class="content-title">
+                          <%= list[i] %>
+                        </h5>
+                        <p class="content-text">
+                          <%= save[i+1] %>
+                        </p>
+                        <% } %>
+
+                          <% } %>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <span class="footer-date">
+                  Saved on: <%= new Date(createdat).toLocaleDateString() %>
+                </span>
+
+                <!-- toggle buttons -->
+                <button class="expand-toggle-btn" aria-controls="save-card-<%= index %>">
+                  <span class="arrow down"></span>
+                  <span class="arrow up"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <% }); %>
+            <% } else { %>
+              <p class="text-center">You haven't saved any items yet!</p>
+              <% } %>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <a href="/" class="footer-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <path
+          d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+      </svg>
+      Back to Scraper
+    </a>
+  </footer>
+
+  <script src="/scripts/viewsaves.js"></script>
+</body>
+
+</html>

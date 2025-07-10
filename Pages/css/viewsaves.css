@@ -1,0 +1,190 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Oswald:wght@400;600&display=swap');
+
+:root {
+  --dark-blue-bg: #0f0024;
+  --mid-blue-card: #1b263b;
+  --light-blue-text: #e0e1dd;
+  --gold-accent: #ffca3a;
+  --border-color: #415a77;
+}
+
+/* --- GENERAL & STICKY FOOTER SETUP --- */
+html {
+  height: 100%;
+}
+
+body {
+  background-color: var(--dark-blue-bg);
+  color: var(--light-blue-text);
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.main-content {
+  flex: 1 0 auto; /* Pushes footer down */
+}
+
+.page-title {
+  font-family: 'Oswald', sans-serif;
+  color: var(--gold-accent);
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+}
+
+/* --- SAVE CARD STYLING --- */
+.save-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.save-card {
+  width: 90%;
+  max-width: 800px;
+  background-color: var(--mid-blue-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden; /* Important for clean corners */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.save-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 202, 58, 0.2);
+  border-color: var(--gold-accent);
+}
+
+/* --- CARD SECTIONS --- */
+.card-header, .card-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0.749);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.header-date {
+  font-size: 0.85rem;
+  color: var(--light-blue-text);
+  opacity: 0.7;
+}
+
+.card-footer {
+  border-top: 1px solid var(--border-color);
+}
+
+.source-link {
+  color: var(--gold-accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.source-link:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+/* --- COLLAPSIBLE CONTENT --- */
+.card-collapsible-content {
+  max-height: 0; /* This is the key: initially collapsed */
+  overflow: hidden;
+  transition: max-height 0.5s ease-out; /* Smooth animation */
+}
+
+/* State when card is expanded */
+.save-card[data-state="expanded"] .card-collapsible-content {
+  max-height: 500px; /* Set to a height larger than content will ever be */
+}
+
+.card-body {
+  padding: 0;
+}
+
+.card-body-scroll {
+  max-height: 350px; /* This is the fixed height for the content */
+  overflow-y: auto; /* Adds scrollbar only when needed */
+  padding: 1.5rem;
+}
+
+.content-title {
+  font-family: 'Oswald', sans-serif;
+  color: var(--gold-accent);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.content-title:first-child {
+  margin-top: 0;
+}
+
+.content-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre-wrap; /* Preserves newlines from scraped text */
+  word-break: break-word;
+}
+
+/* --- FOOTER & EXPAND BUTTON --- */
+.site-footer {
+  background-color: #2f93ff;
+  border-top: 1px solid var(--border-color);
+  padding: 1rem;
+  text-align: center;
+}
+.footer-link {
+  color: var(--light-blue-text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-link:hover {
+  color: var(--gold-accent);
+}
+
+.expand-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.expand-toggle-btn:hover .arrow {
+  border-color: var(--gold-accent);
+}
+
+.arrow {
+  border: solid var(--light-blue-text);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.arrow.down { transform: rotate(45deg); }
+.arrow.up { transform: rotate(-135deg); }
+
+/* Control visibility of arrows based on card state */
+.save-card[data-state="collapsed"] .arrow.up { display: none; }
+.save-card[data-state="expanded"] .arrow.down { display: none; }
